@@ -1,0 +1,24 @@
+{
+  "name": "playzoo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "packageManager": "pnpm@12.6.0",
+  "scripts": {
+    "dev": "pnpm --filter @playzoo/web dev",
+    "build": "pnpm --filter @playzoo/web build",
+    "test": "pnpm -r --if-present test && pnpm test:sql",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "check": "pnpm typecheck && pnpm test",
+    "gen:catalog": "python3 tools/gen_catalog.py",
+    "gen:sql": "tsx tools/gen-sql.ts",
+    "preview": "pnpm --filter @playzoo/web preview",
+    "test:sql": "vitest run supabase"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.8",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.0",
+    "vitest": "^3.2.0"
+  }
+}

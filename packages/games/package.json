@@ -1,0 +1,16 @@
+{
+  "name": "@playzoo/games",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "typecheck": "tsc -p .",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@playzoo/engine": "workspace:*",
+    "@playzoo/shared": "workspace:*"
+  }
+}

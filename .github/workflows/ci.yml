@@ -1,0 +1,25 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Comprobar que el catálogo y el SQL están al día
+        run: |
+          python3 tools/gen_catalog.py
+          pnpm gen:sql
+          git diff --exit-code packages/games/src/catalog.ts packages/games/src/loaders.ts supabase/migrations/0002_seed_juegos_calendario.sql
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm build
